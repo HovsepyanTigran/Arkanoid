@@ -28,13 +28,8 @@ var ballRadius = 10, ballX = canvas.width/2, ballY = canvas.height/1.1 - deckHei
 let corner = chosenValue
 
 
-
-
 let moveX = Math.cos(Math.PI / 180 * corner) * ballSpeed;
 let moveY = Math.sin(Math.PI / 180 * corner) * ballSpeed;
-
-
-
 
 
 function drawBall() {
@@ -98,7 +93,7 @@ function drawBricks() {
 
 function deleteBricks() {
     for(var i = 0; i < bricks.length; i++) {
-        if (ballY - ballRadius < bricks[i].bricksY + bricks[i].bricksHeight && ballY + (ballRadius*2) > bricks[i].bricksY) {
+        if (ballY - ballRadius < bricks[i].bricksY + bricks[i].bricksHeight && ballY + ballRadius > bricks[i].bricksY) {
             if (ballX < bricks[i].bricksX + bricks[i].bricksWidth && ballX > bricks[i].bricksX) {
                 bricks[i].bricksWidth = 0;
                 bricks[i].bricksHeight = 0;
@@ -106,7 +101,6 @@ function deleteBricks() {
                 moveY = -moveY;
             }
         }
-        
     }
             
 }        
@@ -216,20 +210,27 @@ function moveBall() {
         }
     }
     //----------------------------------------------------------------------------------------------------------------------------
-    if(ballY + ballRadius > deckY + 3) {
-        if (ballX + ballRadius >= deckX) {
-            moveX = -moveY;
-            if (ballY - ballRadius >= deckY + deckHeight && ballY + ballRadius >= deckY) {
-                moveX = -moveY;
-                console.log("fffff")
-            }
-        if(ballX - ballRadius < deckX + deckWidth) {
-            moveY = -moveY
-            if (ballY + ballRadius >= deckY + deckHeight && ballY + ballRadius >= deckY) {
-                    moveX = -moveY;
-                }
+    if(ballY + ballRadius >= deckY + 3) {
+        if (ballX + ballRadius >= deckX && ballX - ballRadius <= deckX + deckWidth) {
+            console.log("kk")
+            moveX = -moveX;
         }
-    }
+            // if (ballY + ballRadius >= deckY + deckHeight) {
+            //         moveX = moveY;
+            //     }
+    //     else if(ballX - ballRadius <= deckX + deckWidth &&) {
+    //         moveX = -moveY
+    // }
+
+    // if(ballY + ballRadius > deckY + 3) {
+    //     if (ballX + ballRadius >= deckX  && ballX - ballRadius < deckX + deckWidth) {
+    //         moveX = -moveY;
+    //     } else {
+    //         moveX = moveY;
+    //     }
+    // }
+
+    
     // if(ballY + ballRadius > deckY + 3) {
     //     if(ballX - ballRadius < deckX + deckWidth) {
     //             moveX = -moveY;
@@ -240,12 +241,13 @@ function moveBall() {
     //             moveX = 0
     //             }
     //          }
-    //         }
-    }
+    //        }
+    // }
     
     if (ballY - ballRadius > deckY + deckHeight) {
         moveY = 0;
         moveX = 0;
         gameOver = true;
     }
+}
 }
